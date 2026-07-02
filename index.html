@@ -117,7 +117,19 @@ p{color:var(--muted);line-height:1.75;font-size:16px}
 <div id="toast" class="toast"></div>
 <div class="secret" onclick="toast('I still replay your voice notes. ❤️')">♡</div>
 
-<section id="landing" class="screen active"><div class="hero"><div class="panel center">
+
+<section id="site-lock" class="screen active">
+  <div class="lockbox panel">
+    <div class="small">welcome home</div>
+    <h2>Before you come in...</h2>
+    <p class="italic">Enter our number.</p>
+    <input id="sitePassword" class="input" placeholder="Enter our number" inputmode="numeric">
+    <button class="btn" onclick="siteUnlock()">Come In ❤️</button>
+    <p><small>This little universe belongs to us.</small></p>
+  </div>
+</section>
+
+<section id="landing" class="screen"><div class="hero"><div class="panel center">
 <div class="small">loading our little universe...</div><div class="divider"></div><h1>Welcome Home.</h1><p class="italic">A tiny place on the internet made for us.</p><button class="btn" onclick="go('home')">Come In ❤️</button>
 </div></div></section>
 
@@ -206,7 +218,9 @@ const screens=[...document.querySelectorAll('.screen')];
 function show(id){screens.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 function titleClick(){titleTaps++; if(titleTaps>=5){titleTaps=0; go('secret');} else if(titleTaps===3){toast('keep going... ❤️');}}
 function go(id){const o=document.getElementById('overlay'),t=document.getElementById('ovtxt');t.textContent=id==='home'?'Welcome Home.':'Opening...';o.classList.add('show');setTimeout(()=>{show(id);o.classList.remove('show')},620)}
+function siteUnlock(){const p=document.getElementById('sitePassword').value.trim();if(p==='0323'){go('home')}else toast('Not that one, babyyyyy ❤️')}
 function unlock(){const p=document.getElementById('password').value.trim();if(p==='0323'){const o=document.getElementById('overlay'),t=document.getElementById('ovtxt');o.classList.add('show');t.textContent='Access Granted...';setTimeout(()=>t.textContent='One last thing...',900);setTimeout(()=>{show('vault');o.classList.remove('show')},1850)}else toast('Not that one, babyyyyy ❤️')}
 function toast(msg){const x=document.getElementById('toast');x.textContent=msg;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2300)}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){if(document.getElementById('site-lock').classList.contains('active')) siteUnlock(); else if(document.getElementById('lock').classList.contains('active')) unlock();}});
 </script>
 </body></html>
